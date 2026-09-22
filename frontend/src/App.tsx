@@ -117,7 +117,7 @@ function App() {
           type: 'scatter',
           mode: 'lines',
           fill: 'tonexty',
-          fillcolor: 'rgba(17, 24, 39, 0.14)',
+          fillcolor: 'rgba(128, 128, 128, 0.33)',
           line: { color: 'rgba(0,0,0,0)' },
           hoverinfo: 'skip',
           name: '95% confidence band',
@@ -127,7 +127,7 @@ function App() {
           y: chart.trend.map((item) => item.log_cpm),
           type: 'scatter',
           mode: 'lines',
-          line: { color: '#111827', width: 3 },
+          line: { color: 'royalblue', width: 3 },
           name: 'LOESS trend',
         },
         {
@@ -135,7 +135,7 @@ function App() {
           y: chart.points.map((item) => item.log_cpm),
           type: 'scatter',
           mode: 'markers',
-          marker: { color: '#6b7280', size: 8, opacity: 0.78 },
+          marker: { color: 'red', size: 8, opacity: 0.78 },
           customdata: chart.points.map((item) => [
             item.sample_id,
             item.age_days.toFixed(1),
@@ -266,7 +266,7 @@ function App() {
             useResizeHandler
           />
           <p className="chart-note">
-            Grey points are individual samples. The black line is a LOESS-smoothed
+            Red points are individual samples. The blue line is a LOESS-smoothed
             trend; the shaded band shows its 95% confidence interval.
           </p>
         </section>

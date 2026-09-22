@@ -40,3 +40,29 @@ jobs:
       - name: Build frontend
         working-directory: frontend
         run: npm run build
+
+  deploy:
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+    steps:
+      - name: Connect to EC2 and deploy
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$EC2_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
+          ssh ubuntu@"$EC2_HOST" << 'EOF'
+            set -e
+            cd /home/ubuntu/brainvar
+            GIT_SSH_COMMAND='ssh -i /home/ubuntu/.ssh/brainvar_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new' git pull --ff-only
+            /home/ubuntu/brainvar/.venv/bin/python -m pip install -r backend/requirements.txt
+            cd frontend
+            npm ci
+            npm run build
+            sudo cp -r dist/* /var/www/brainvar/
+            sudo systemctl restart brainvar
+          EOF
