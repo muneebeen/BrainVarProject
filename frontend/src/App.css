@@ -1,0 +1,25 @@
+.page-shell { width: min(960px, calc(100% - 2rem)); margin: 0 auto; padding: 3.5rem 0; }
+.intro { margin-bottom: 2rem; }
+.eyebrow { margin: 0 0 .45rem; color: #52525b; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: .6rem; color: #111827; font-size: clamp(2rem, 4vw, 2.7rem); letter-spacing: -.04em; line-height: 1.1; }
+.description { max-width: 640px; margin-bottom: 0; color: #6b7280; line-height: 1.6; }
+.search-panel { border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; padding: 1.25rem 0; }
+.search-form label { display: block; margin-bottom: .45rem; color: #374151; font-size: .9rem; font-weight: 650; }
+.search-controls { display: flex; gap: .65rem; }
+input { min-width: 0; flex: 1; border: 1px solid #d1d5db; border-radius: 6px; padding: .7rem .8rem; color: #111827; font: inherit; }
+input:focus { outline: 2px solid #d4d4d8; border-color: #18181b; }
+button { border: 0; border-radius: 6px; padding: .7rem .9rem; background: #18181b; color: #fff; cursor: pointer; font: inherit; font-weight: 650; }
+button:hover:not(:disabled) { background: #3f3f46; }
+button:disabled { cursor: wait; opacity: .65; }
+.examples { margin: .75rem 0 0; color: #6b7280; font-size: .88rem; }
+.example-button { margin-left: .25rem; padding: 0; background: transparent; color: #27272a; text-decoration: underline; }
+.example-button:hover:not(:disabled) { background: transparent; color: #27272a; }
+.error-message { margin: 1.25rem 0; border-left: 3px solid #dc2626; padding-left: .75rem; color: #b91c1c; }
+.chart-panel { margin-top: 2rem; }
+.chart-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #e5e7eb; padding-bottom: .8rem; }
+.chart-heading h2 { margin-bottom: .1rem; color: #111827; font-size: 1.35rem; }
+.chart-heading p, .sample-count, .chart-note { color: #6b7280; }
+.sample-count { margin: 0; white-space: nowrap; font-size: .9rem; }
+.chart-note { margin: 0; font-size: .86rem; line-height: 1.5; }
+@media (max-width: 620px) { .page-shell { padding: 2.25rem 0; } .search-controls, .chart-heading { flex-direction: column; align-items: stretch; } .search-controls button { width: 100%; } }
