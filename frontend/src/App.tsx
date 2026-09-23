@@ -267,7 +267,7 @@ function App() {
           />
           <p className="chart-note">
             Red points are individual samples. The blue line is a LOESS-smoothed
-            trend; the shaded band shows its 95% confidence interval.
+            trend; the shaded band shows its 95% confidence interval
           </p>
         </section>
       )}
