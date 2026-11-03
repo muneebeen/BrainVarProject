@@ -51,7 +51,7 @@ function App() {
 
     if (!query) {
       setChart(null)
-      setError('Enter a gene symboll, for example SCN2A.')
+      setError('Enter a gene symbol, for example SCN2A.')
       return
     }
 
