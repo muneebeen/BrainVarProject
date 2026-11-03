@@ -6,21 +6,24 @@ from app.data_service import GeneNotFoundError
 
 
 class FakeBrainVarData:
-    symbol_to_ensembl = {"SCN2A": "ENSG00000136531"}
+    ensembl_to_symbol = {"ENSG00000136531": "SCN2A"}
 
     def chart_data_for_gene(self, gene_query: str) -> dict:
         query = "".join(gene_query.split()).upper()
         if query != "SCN2A":
             raise GeneNotFoundError(f"Gene '{gene_query}' was not found.")
 
-        return {
+        chart = {
             "gene_symbol": "SCN2A",
             "ensembl_id": "ENSG00000136531",
             "expression_label": "log2(CPM + 0.001)",
             "points": [{"sample_id": "sample-1"}],
             "trend": [{"log_age_days": 1.0, "log_cpm": 2.0}],
             "milestones": [],
+            "all_zero": False,
+            "warning": None,
         }
+        return {"charts": [chart], "notice": None}
 
 
 @pytest.fixture
@@ -42,16 +45,17 @@ def test_known_gene_returns_chart_data(client: TestClient) -> None:
 
     assert response.status_code == 200
     payload = response.json()
-    assert payload["gene_symbol"] == "SCN2A"
-    assert payload["points"]
-    assert payload["trend"]
+    assert len(payload["charts"]) == 1
+    assert payload["charts"][0]["gene_symbol"] == "SCN2A"
+    assert payload["charts"][0]["points"]
+    assert payload["charts"][0]["trend"]
 
 
 def test_gene_search_ignores_spaces_and_case(client: TestClient) -> None:
     response = client.get("/api/genes/%20scn2%20%20%20a%20")
 
     assert response.status_code == 200
-    assert response.json()["gene_symbol"] == "SCN2A"
+    assert response.json()["charts"][0]["gene_symbol"] == "SCN2A"
 
 
 def test_unknown_gene_returns_a_clear_message(client: TestClient) -> None:
